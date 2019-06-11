@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.examsystem.dao.MenuResourceDao">
+    <resultMap id="BaseResultMap" type="com.exam.examsystem.po.MenuResourcePo">
+        <id column="menuid" jdbcType="INTEGER" property="menuid"/>
+        <result column="parentmenuid" jdbcType="INTEGER" property="parentmenuid"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="removed" jdbcType="VARCHAR" property="removed"/>
+        <result column="menutype" jdbcType="VARCHAR" property="menutype"/>
+        <result column="allowcustom" jdbcType="VARCHAR" property="allowcustom"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="levels" jdbcType="VARCHAR" property="levels"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    menuid, parentmenuid, code, `name`, description, url, priority, `status`, removed, 
+    menutype, allowcustom, icon, levels
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_resource
+        where menuid = #{menuid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu_resource
+    where menuid = #{menuid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.exam.examsystem.po.MenuResourcePo">
+    insert into menu_resource (menuid, parentmenuid, code, 
+      `name`, description, url, 
+      priority, `status`, removed, 
+      menutype, allowcustom, icon, 
+      levels)
+    values (#{menuid,jdbcType=INTEGER}, #{parentmenuid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{removed,jdbcType=VARCHAR}, 
+      #{menutype,jdbcType=VARCHAR}, #{allowcustom,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{levels,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.exam.examsystem.po.MenuResourcePo">
+        insert into menu_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menuid != null">
+                menuid,
+            </if>
+            <if test="parentmenuid != null">
+                parentmenuid,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="priority != null">
+                priority,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="removed != null">
+                removed,
+            </if>
+            <if test="menutype != null">
+                menutype,
+            </if>
+            <if test="allowcustom != null">
+                allowcustom,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="levels != null">
+                levels,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="menuid != null">
+                #{menuid,jdbcType=INTEGER},
+            </if>
+            <if test="parentmenuid != null">
+                #{parentmenuid,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="priority != null">
+                #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="removed != null">
+                #{removed,jdbcType=VARCHAR},
+            </if>
+            <if test="menutype != null">
+                #{menutype,jdbcType=VARCHAR},
+            </if>
+            <if test="allowcustom != null">
+                #{allowcustom,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="levels != null">
+                #{levels,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.exam.examsystem.po.MenuResourcePo">
+        update menu_resource
+        <set>
+            <if test="parentmenuid != null">
+                parentmenuid = #{parentmenuid,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="removed != null">
+                removed = #{removed,jdbcType=VARCHAR},
+            </if>
+            <if test="menutype != null">
+                menutype = #{menutype,jdbcType=VARCHAR},
+            </if>
+            <if test="allowcustom != null">
+                allowcustom = #{allowcustom,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="levels != null">
+                levels = #{levels,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where menuid = #{menuid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.exam.examsystem.po.MenuResourcePo">
+    update menu_resource
+    set parentmenuid = #{parentmenuid,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=VARCHAR},
+      removed = #{removed,jdbcType=VARCHAR},
+      menutype = #{menutype,jdbcType=VARCHAR},
+      allowcustom = #{allowcustom,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      levels = #{levels,jdbcType=VARCHAR}
+    where menuid = #{menuid,jdbcType=INTEGER}
+  </update>
+</mapper>
