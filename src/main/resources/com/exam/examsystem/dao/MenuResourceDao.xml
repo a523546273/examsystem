@@ -185,4 +185,11 @@
       levels = #{levels,jdbcType=VARCHAR}
     where menuid = #{menuid,jdbcType=INTEGER}
   </update>
+
+    <select id="selectAllMenuResource" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_resource
+        where removed = '0'
+    </select>
 </mapper>

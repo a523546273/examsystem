@@ -1,9 +1,12 @@
 package com.exam.examsystem.service.impl;
 
 import com.exam.examsystem.dao.MenuResourceDao;
+import com.exam.examsystem.po.MenuResourcePo;
 import com.exam.examsystem.service.MenuResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: hongwei.wang
@@ -14,4 +17,9 @@ public class MenuResourceServiceImpl implements MenuResourceService {
 
     @Autowired
     private MenuResourceDao menuResourceDao;
+
+    @Override
+    public List<MenuResourcePo> selectAllMenuResource() {
+        return null;
+    }
 }
