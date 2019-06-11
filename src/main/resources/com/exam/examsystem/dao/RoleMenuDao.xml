@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.examsystem.dao.RoleMenuDao">
+  <resultMap id="BaseResultMap" type="com.exam.examsystem.po.RoleMenuPo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="roleid" jdbcType="BIGINT" property="roleid" />
+    <result column="menuid" jdbcType="BIGINT" property="menuid" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.exam.examsystem.po.RoleMenuPo">
+    <result column="isleaf" jdbcType="VARBINARY" property="isleaf" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, roleid, menuid, creator, createdate
+  </sql>
+  <sql id="Blob_Column_List">
+    isleaf
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from role_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role_menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.exam.examsystem.po.RoleMenuPo">
+    insert into role_menu (id, roleid, menuid, 
+      creator, createdate, isleaf
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT}, #{menuid,jdbcType=BIGINT}, 
+      #{creator,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{isleaf,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.exam.examsystem.po.RoleMenuPo">
+    insert into role_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="menuid != null">
+        menuid,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="isleaf != null">
+        isleaf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="menuid != null">
+        #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isleaf != null">
+        #{isleaf,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exam.examsystem.po.RoleMenuPo">
+    update role_menu
+    <set>
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="menuid != null">
+        menuid = #{menuid,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isleaf != null">
+        isleaf = #{isleaf,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.exam.examsystem.po.RoleMenuPo">
+    update role_menu
+    set roleid = #{roleid,jdbcType=BIGINT},
+      menuid = #{menuid,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      isleaf = #{isleaf,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exam.examsystem.po.RoleMenuPo">
+    update role_menu
+    set roleid = #{roleid,jdbcType=BIGINT},
+      menuid = #{menuid,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
