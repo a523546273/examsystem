@@ -7,9 +7,9 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="validity" jdbcType="VARCHAR" property="validity" />
-    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
     <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
-    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modifier" jdbcType="INTEGER" property="modifier" />
     <result column="modifydate" jdbcType="TIMESTAMP" property="modifydate" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -31,8 +31,8 @@
       createdate, modifier, modifydate
       )
     values (#{roleid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{validity,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
-      #{createdate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifydate,jdbcType=TIMESTAMP}
+      #{description,jdbcType=VARCHAR}, #{validity,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifydate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.exam.examsystem.po.RolePo">
@@ -83,13 +83,13 @@
         #{validity,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
-        #{creator,jdbcType=VARCHAR},
+        #{creator,jdbcType=INTEGER},
       </if>
       <if test="createdate != null">
         #{createdate,jdbcType=TIMESTAMP},
       </if>
       <if test="modifier != null">
-        #{modifier,jdbcType=VARCHAR},
+        #{modifier,jdbcType=INTEGER},
       </if>
       <if test="modifydate != null">
         #{modifydate,jdbcType=TIMESTAMP},
@@ -112,13 +112,13 @@
         validity = #{validity,jdbcType=VARCHAR},
       </if>
       <if test="creator != null">
-        creator = #{creator,jdbcType=VARCHAR},
+        creator = #{creator,jdbcType=INTEGER},
       </if>
       <if test="createdate != null">
         createdate = #{createdate,jdbcType=TIMESTAMP},
       </if>
       <if test="modifier != null">
-        modifier = #{modifier,jdbcType=VARCHAR},
+        modifier = #{modifier,jdbcType=INTEGER},
       </if>
       <if test="modifydate != null">
         modifydate = #{modifydate,jdbcType=TIMESTAMP},
@@ -132,9 +132,9 @@
       `name` = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       validity = #{validity,jdbcType=VARCHAR},
-      creator = #{creator,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
       createdate = #{createdate,jdbcType=TIMESTAMP},
-      modifier = #{modifier,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=INTEGER},
       modifydate = #{modifydate,jdbcType=TIMESTAMP}
     where roleid = #{roleid,jdbcType=INTEGER}
   </update>

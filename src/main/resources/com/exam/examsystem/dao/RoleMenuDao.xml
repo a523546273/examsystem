@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="roleid" jdbcType="INTEGER" property="roleid" />
     <result column="menuid" jdbcType="INTEGER" property="menuid" />
-    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
     <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.exam.examsystem.po.RoleMenuPo">
@@ -34,7 +34,7 @@
       creator, createdate, isleaf
       )
     values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, 
-      #{creator,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{isleaf,jdbcType=VARBINARY}
+      #{creator,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, #{isleaf,jdbcType=VARBINARY}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.exam.examsystem.po.RoleMenuPo">
@@ -70,7 +70,7 @@
         #{menuid,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
-        #{creator,jdbcType=VARCHAR},
+        #{creator,jdbcType=INTEGER},
       </if>
       <if test="createdate != null">
         #{createdate,jdbcType=TIMESTAMP},
@@ -90,7 +90,7 @@
         menuid = #{menuid,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
-        creator = #{creator,jdbcType=VARCHAR},
+        creator = #{creator,jdbcType=INTEGER},
       </if>
       <if test="createdate != null">
         createdate = #{createdate,jdbcType=TIMESTAMP},
@@ -105,7 +105,7 @@
     update role_menu
     set roleid = #{roleid,jdbcType=INTEGER},
       menuid = #{menuid,jdbcType=INTEGER},
-      creator = #{creator,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
       createdate = #{createdate,jdbcType=TIMESTAMP},
       isleaf = #{isleaf,jdbcType=VARBINARY}
     where id = #{id,jdbcType=INTEGER}
@@ -114,7 +114,7 @@
     update role_menu
     set roleid = #{roleid,jdbcType=INTEGER},
       menuid = #{menuid,jdbcType=INTEGER},
-      creator = #{creator,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
       createdate = #{createdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -16,7 +16,7 @@ public class RoleUserPo implements Serializable {
 
     private Date createdate;
 
-    private String creator;
+    private Integer creator;
 
     private static final long serialVersionUID = 1L;
 
@@ -52,11 +52,11 @@ public class RoleUserPo implements Serializable {
         this.createdate = createdate;
     }
 
-    public String getCreator() {
+    public Integer getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(Integer creator) {
         this.creator = creator;
     }
 }

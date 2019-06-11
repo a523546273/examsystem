@@ -20,7 +20,7 @@ public class RoleMenuPo implements Serializable {
      */
     private Integer menuid;
 
-    private String creator;
+    private Integer creator;
 
     private Date createdate;
 
@@ -55,11 +55,11 @@ public class RoleMenuPo implements Serializable {
         this.menuid = menuid;
     }
 
-    public String getCreator() {
+    public Integer getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(Integer creator) {
         this.creator = creator;
     }
 

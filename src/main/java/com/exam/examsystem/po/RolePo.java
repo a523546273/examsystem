@@ -33,11 +33,11 @@ public class RolePo implements Serializable {
      */
     private String validity;
 
-    private String creator;
+    private Integer creator;
 
     private Date createdate;
 
-    private String modifier;
+    private Integer modifier;
 
     private Date modifydate;
 
@@ -83,11 +83,11 @@ public class RolePo implements Serializable {
         this.validity = validity;
     }
 
-    public String getCreator() {
+    public Integer getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(Integer creator) {
         this.creator = creator;
     }
 
@@ -99,11 +99,11 @@ public class RolePo implements Serializable {
         this.createdate = createdate;
     }
 
-    public String getModifier() {
+    public Integer getModifier() {
         return modifier;
     }
 
-    public void setModifier(String modifier) {
+    public void setModifier(Integer modifier) {
         this.modifier = modifier;
     }
 
