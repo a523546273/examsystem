@@ -1,0 +1,50 @@
+spring:
+  #thymelea模板配置
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: utf-8
+    cache: false
+  #热部署文件，页面不产生缓存，及时更新
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: "jdbc:mysql://127.0.0.1:3306/exam?characterEncoding=UTF-8"
+    username: "root"
+    password: "root"
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: "SELECT 1 FROM DUAL"
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: "stat,wall,log4j"
+      connect-properties:
+        - druid.stat.mergeSql: true
+        - druid.stat.slowSqlMillis: 5000
+
+mybatis:
+  mapper-locations:
+    - classpath*:com/exam/examsystem/dao/*.xml
+
+
+#分页插件
+pagehelper:
+  helper-dialect: mysql
+  params: countSql
+  reasonable: true
+  support-methods-arguments: true
