@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.examsystem.dao.RoleDao">
   <resultMap id="BaseResultMap" type="com.exam.examsystem.po.RolePo">
-    <id column="roleid" jdbcType="BIGINT" property="roleid" />
+    <id column="roleid" jdbcType="INTEGER" property="roleid" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -15,22 +15,22 @@
   <sql id="Base_Column_List">
     roleid, code, `name`, description, validity, creator, createdate, modifier, modifydate
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from role
-    where roleid = #{roleid,jdbcType=BIGINT}
+    where roleid = #{roleid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from role
-    where roleid = #{roleid,jdbcType=BIGINT}
+    where roleid = #{roleid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.exam.examsystem.po.RolePo">
     insert into role (roleid, code, `name`, 
       description, validity, creator, 
       createdate, modifier, modifydate
       )
-    values (#{roleid,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    values (#{roleid,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{validity,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
       #{createdate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifydate,jdbcType=TIMESTAMP}
       )
@@ -68,7 +68,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roleid != null">
-        #{roleid,jdbcType=BIGINT},
+        #{roleid,jdbcType=INTEGER},
       </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
         modifydate = #{modifydate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where roleid = #{roleid,jdbcType=BIGINT}
+    where roleid = #{roleid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exam.examsystem.po.RolePo">
     update role
@@ -136,6 +136,6 @@
       createdate = #{createdate,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},
       modifydate = #{modifydate,jdbcType=TIMESTAMP}
-    where roleid = #{roleid,jdbcType=BIGINT}
+    where roleid = #{roleid,jdbcType=INTEGER}
   </update>
 </mapper>

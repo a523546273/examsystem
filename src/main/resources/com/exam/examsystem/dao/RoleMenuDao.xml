@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.examsystem.dao.RoleMenuDao">
   <resultMap id="BaseResultMap" type="com.exam.examsystem.po.RoleMenuPo">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="roleid" jdbcType="BIGINT" property="roleid" />
-    <result column="menuid" jdbcType="BIGINT" property="menuid" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="menuid" jdbcType="INTEGER" property="menuid" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
   </resultMap>
@@ -17,23 +17,23 @@
   <sql id="Blob_Column_List">
     isleaf
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from role_menu
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from role_menu
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.exam.examsystem.po.RoleMenuPo">
     insert into role_menu (id, roleid, menuid, 
       creator, createdate, isleaf
       )
-    values (#{id,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT}, #{menuid,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, 
       #{creator,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{isleaf,jdbcType=VARBINARY}
       )
   </insert>
@@ -61,13 +61,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="roleid != null">
-        #{roleid,jdbcType=BIGINT},
+        #{roleid,jdbcType=INTEGER},
       </if>
       <if test="menuid != null">
-        #{menuid,jdbcType=BIGINT},
+        #{menuid,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
@@ -84,10 +84,10 @@
     update role_menu
     <set>
       <if test="roleid != null">
-        roleid = #{roleid,jdbcType=BIGINT},
+        roleid = #{roleid,jdbcType=INTEGER},
       </if>
       <if test="menuid != null">
-        menuid = #{menuid,jdbcType=BIGINT},
+        menuid = #{menuid,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
         creator = #{creator,jdbcType=VARCHAR},
@@ -99,23 +99,23 @@
         isleaf = #{isleaf,jdbcType=VARBINARY},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.exam.examsystem.po.RoleMenuPo">
     update role_menu
-    set roleid = #{roleid,jdbcType=BIGINT},
-      menuid = #{menuid,jdbcType=BIGINT},
+    set roleid = #{roleid,jdbcType=INTEGER},
+      menuid = #{menuid,jdbcType=INTEGER},
       creator = #{creator,jdbcType=VARCHAR},
       createdate = #{createdate,jdbcType=TIMESTAMP},
       isleaf = #{isleaf,jdbcType=VARBINARY}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exam.examsystem.po.RoleMenuPo">
     update role_menu
-    set roleid = #{roleid,jdbcType=BIGINT},
-      menuid = #{menuid,jdbcType=BIGINT},
+    set roleid = #{roleid,jdbcType=INTEGER},
+      menuid = #{menuid,jdbcType=INTEGER},
       creator = #{creator,jdbcType=VARCHAR},
       createdate = #{createdate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

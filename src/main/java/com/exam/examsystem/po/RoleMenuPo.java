@@ -8,17 +8,17 @@ import java.util.Date;
  * @author 
  */
 public class RoleMenuPo implements Serializable {
-    private Long id;
+    private Integer id;
 
     /**
      * 角色id
      */
-    private Long roleid;
+    private Integer roleid;
 
     /**
      * 菜单id
      */
-    private Long menuid;
+    private Integer menuid;
 
     private String creator;
 
@@ -31,27 +31,27 @@ public class RoleMenuPo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getRoleid() {
+    public Integer getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
 
-    public Long getMenuid() {
+    public Integer getMenuid() {
         return menuid;
     }
 
-    public void setMenuid(Long menuid) {
+    public void setMenuid(Integer menuid) {
         this.menuid = menuid;
     }
 

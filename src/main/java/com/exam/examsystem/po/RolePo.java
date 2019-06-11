@@ -11,7 +11,7 @@ public class RolePo implements Serializable {
     /**
      * 角色id
      */
-    private Long roleid;
+    private Integer roleid;
 
     /**
      * 角色代码
@@ -43,11 +43,11 @@ public class RolePo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getRoleid() {
+    public Integer getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Long roleid) {
+    public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
 
