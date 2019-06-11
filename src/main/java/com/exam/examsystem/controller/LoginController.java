@@ -53,6 +53,7 @@ public class LoginController {
             }
 
             request.getSession().setAttribute(SessionConstants.WSSIP_OPERATOR_ID, userPo.getUserid());
+            request.getSession().setAttribute(SessionConstants.WSSIP_OPERATOR_LOGINNAME, userPo.getLoginname());
 
         } catch (Exception e) {
             return ResponseDataUtil.buildError(ResultEnums.SYSTEM_ERROR);

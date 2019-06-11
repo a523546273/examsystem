@@ -20,6 +20,6 @@ public class MenuResourceServiceImpl implements MenuResourceService {
 
     @Override
     public List<MenuResourcePo> selectAllMenuResource() {
-        return null;
+        return menuResourceDao.selectAllMenuResource();
     }
 }
