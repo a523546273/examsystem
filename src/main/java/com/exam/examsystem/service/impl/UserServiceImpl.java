@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         po.setSlat(slat);
 
         po.setPassword(MD5Utils.MD5Encode(userForm.getPassword(), slat));
-
+        po.setStatus(BizMessageConstants.USER_STATUS_1);
         userDao.insert(po);
     }
 }

@@ -40,7 +40,7 @@
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.exam.examsystem.po.UserPo">
-    insert into user (userid, loginname, `password`,
+    insert into user (loginname, `password`,
       slat, user_type, `name`,
       sex, telephone, address,
       mobile_phone, fax, email,
@@ -48,7 +48,7 @@
       bindip, validity, createdate,
       creator, modifydate, modifier
       )
-    values (#{userid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    values ( #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{slat,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
       #{mobilePhone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
