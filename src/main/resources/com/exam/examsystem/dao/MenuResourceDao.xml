@@ -16,6 +16,24 @@
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
         <result column="levels" jdbcType="VARCHAR" property="levels"/>
     </resultMap>
+
+
+    <resultMap id="BaseResultMap1" type="com.exam.examsystem.dto.MenuResourceDto">
+        <id column="menuid" jdbcType="INTEGER" property="menuid"/>
+        <result column="parentmenuid" jdbcType="INTEGER" property="parentmenuid"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="removed" jdbcType="VARCHAR" property="removed"/>
+        <result column="menutype" jdbcType="VARCHAR" property="menutype"/>
+        <result column="allowcustom" jdbcType="VARCHAR" property="allowcustom"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="levels" jdbcType="VARCHAR" property="levels"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
     menuid, parentmenuid, code, `name`, description, url, priority, `status`, removed, 
     menutype, allowcustom, icon, levels
@@ -191,5 +209,23 @@
         <include refid="Base_Column_List"/>
         from menu_resource
         where removed = '0'
+    </select>
+
+    <select id="selectMenuResourceByLevels" resultMap="BaseResultMap1">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_resource
+        where removed = '0'
+        and levels = #{levels,jdbcType=VARCHAR}
+        order by priority asc
+    </select>
+
+    <select id="selectMenuResourceByParentmenuid" resultMap="BaseResultMap1">
+        select
+        <include refid="Base_Column_List"/>
+        from menu_resource
+        where removed = '0'
+        and parentmenuid = #{parentmenuid,jdbcType=INTEGER}
+        order by priority asc
     </select>
 </mapper>

@@ -59,10 +59,11 @@
     }
 
     Xadmin.prototype.add_lay_tab = function (title, url, id) {
+        var surl = "/index/doCenter?url=" + url;
         element.tabAdd('xbs_tab', {
             title: title
             ,
-            content: '<iframe tab-id="' + id + '" frameborder="0" src="' + url + '" scrolling="yes" class="x-iframe"></iframe>'
+            content: '<iframe tab-id="' + id + '" frameborder="0" src="' + surl + '" scrolling="yes" class="x-iframe"></iframe>'
             ,
             id: id
         })
@@ -76,7 +77,7 @@
      * @param  {Boolean} full  [全屏]
      * @return {[type]}        [description]
      */
-    Xadmin.prototype.open = function (title, url, w, h, full) {
+    Xadmin.prototype.open = function (title, url, w, h, full, callback) {
         if (title == null || title == '') {
             var title = false;
         }
@@ -101,11 +102,15 @@
             shadeClose: true,
             shade: 0.4,
             title: title,
-            content: url
+            content: url,
+            end: function () {
+                callback();
+            }
         });
         if (full) {
             layer.full(index);
         }
+
     }
     /**
      * [close 关闭弹出层]

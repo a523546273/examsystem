@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="x-admin-sm">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <link rel="stylesheet" th:href="@{/css/xadmin.css}">
+    <script th:src="@{/lib/layui/layui.js}"></script>
+    <script th:src="@{/js/xadmin.js}"></script>
+
+</head>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <select name="userType">
+                                <option></option>
+                                <option th:value="1">管理员</option>
+                                <option th:value="2">普通用户</option>
+                            </select>
+                        </div>
+
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="mobilePhone" placeholder="请输入手机号" autocomplete="off"
+                                   class="layui-input"></div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                <i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="delAll()">
+                        <i class="layui-icon"></i>批量删除
+                    </button>
+                    <button class="layui-btn" th:onclick="addUser()">
+                        <i class="layui-icon"></i>添加
+                    </button>
+                </div>
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="userTable" lay-filter="userFilter"></table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<script>
+    var table;
+    layui.use('table', function () {
+        table = layui.table;
+        var form = layui.form;
+
+        table.render({
+            elem: '#userTable'
+            , url: '/user/userList'
+            , initSort: false
+            , where: {}
+            , cols: [
+                [
+                    {type: 'checkbox', width: 50},
+                    {title: '序号', type: 'numbers'}
+                    , {field: 'loginname', width: 150, title: '用户名'}
+                    , {
+                    field: 'userType', width: 100, title: '用户类型',
+                    templet: function (data) {
+                        if (data.userType == '1') {
+                            return "管理员";
+                        } else {
+                            return "普通用户";
+                        }
+                    }
+                }
+                    , {field: 'mobilePhone', width: 150, title: '手机号'}
+                    , {field: 'createdate', minWidth: 150, title: '创建日期'}
+                ]
+            ]
+            , page: true
+        });
+
+        //监听提交
+        form.on('submit(sreach)', function (data) {
+
+            table.reload("userTable", {
+                where: data.field
+            })
+
+            return false;
+        });
+
+
+    });
+
+    function addUser() {
+        xadmin.open('添加用户', '/page/user/user_add.html', 600, 400, false, function () {
+            table.reload("userTable", {})
+        })
+    }
+</script>
+
+
+</html>

@@ -1,6 +1,8 @@
 package com.exam.examsystem.controller;
 
+import com.exam.examsystem.constants.BizMessageConstants;
 import com.exam.examsystem.constants.SessionConstants;
+import com.exam.examsystem.dto.MenuResourceDto;
 import com.exam.examsystem.po.MenuResourcePo;
 import com.exam.examsystem.service.MenuResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +18,38 @@ import java.util.List;
  * @create: 2019-06-11 15:29
  */
 @Controller
+@RequestMapping("/index/*")
 public class IndexController {
 
     @Autowired
     private MenuResourceService menuResourceService;
 
-    @RequestMapping("/index.html")
+    @RequestMapping("main.html")
     public ModelAndView index(HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView("/index/index");
         String loginname = (String) request.getSession().getAttribute(SessionConstants.WSSIP_OPERATOR_LOGINNAME);
-        List<MenuResourcePo> menuResourcePos =null;
+        List<MenuResourceDto> menuResourcePos = null;
+
         if ("admin".equals(loginname)) {
-             menuResourcePos = menuResourceService.selectAllMenuResource();
+            menuResourcePos = menuResourceService.selectMenuResourceByLevels(BizMessageConstants.LEVELS_1);
+
+            for (MenuResourceDto menuResourceDto : menuResourcePos) {
+                List<MenuResourceDto> menuResourceDtos = menuResourceService.selectMenuResourceByParentmenuid(menuResourceDto.getMenuid());
+                menuResourceDto.setChild(menuResourceDtos);
+            }
+        } else {
+
         }
-        modelAndView.addObject("menuList",menuResourcePos);
+
+        modelAndView.addObject("menuList", menuResourcePos);
 
         return modelAndView;
+    }
+
+    @RequestMapping("/doCenter")
+    public ModelAndView index(String url) {
+
+        return new ModelAndView(url);
     }
 }

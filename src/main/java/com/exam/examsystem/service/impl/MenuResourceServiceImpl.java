@@ -1,6 +1,7 @@
 package com.exam.examsystem.service.impl;
 
 import com.exam.examsystem.dao.MenuResourceDao;
+import com.exam.examsystem.dto.MenuResourceDto;
 import com.exam.examsystem.po.MenuResourcePo;
 import com.exam.examsystem.service.MenuResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,15 @@ public class MenuResourceServiceImpl implements MenuResourceService {
     @Override
     public List<MenuResourcePo> selectAllMenuResource() {
         return menuResourceDao.selectAllMenuResource();
+    }
+
+    @Override
+    public List<MenuResourceDto> selectMenuResourceByLevels(String levels) {
+        return menuResourceDao.selectMenuResourceByLevels(levels);
+    }
+
+    @Override
+    public List<MenuResourceDto> selectMenuResourceByParentmenuid(Integer parentmenuid) {
+        return menuResourceDao.selectMenuResourceByParentmenuid(parentmenuid);
     }
 }

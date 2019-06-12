@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.examsystem.dao.UserDao">
     <resultMap id="BaseResultMap" type="com.exam.examsystem.po.UserPo">
-        <id column="userid" jdbcType="INTEGER" property="userid" />
-        <result column="loginname" jdbcType="VARCHAR" property="loginname" />
-        <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="slat" jdbcType="VARCHAR" property="slat" />
-        <result column="user_type" jdbcType="VARCHAR" property="userType" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="sex" jdbcType="VARCHAR" property="sex" />
-        <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-        <result column="address" jdbcType="VARCHAR" property="address" />
-        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
-        <result column="fax" jdbcType="VARCHAR" property="fax" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="qq" jdbcType="VARCHAR" property="qq" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="organid" jdbcType="INTEGER" property="organid" />
-        <result column="bindip" jdbcType="VARCHAR" property="bindip" />
-        <result column="validity" jdbcType="VARCHAR" property="validity" />
-        <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
-        <result column="creator" jdbcType="INTEGER" property="creator" />
-        <result column="modifydate" jdbcType="TIMESTAMP" property="modifydate" />
-        <result column="modifier" jdbcType="INTEGER" property="modifier" />
+        <id column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="loginname" jdbcType="VARCHAR" property="loginname"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="slat" jdbcType="VARCHAR" property="slat"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="qq" jdbcType="VARCHAR" property="qq"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="organid" jdbcType="INTEGER" property="organid"/>
+        <result column="bindip" jdbcType="VARCHAR" property="bindip"/>
+        <result column="validity" jdbcType="VARCHAR" property="validity"/>
+        <result column="createdate" jdbcType="TIMESTAMP" property="createdate"/>
+        <result column="creator" jdbcType="INTEGER" property="creator"/>
+        <result column="modifydate" jdbcType="TIMESTAMP" property="modifydate"/>
+        <result column="modifier" jdbcType="INTEGER" property="modifier"/>
     </resultMap>
     <sql id="Base_Column_List">
     userid, loginname, `password`, slat, user_type, `name`, sex, telephone, address,
@@ -31,7 +31,7 @@
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from user
         where userid = #{userid,jdbcType=INTEGER}
     </select>
@@ -286,5 +286,30 @@
         <include refid="Base_Column_List"/>
         from user
         where mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectByLoginname" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where loginname = #{loginname,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.exam.examsystem.req.UserRequest">
+
+        select userid,user_type,name,loginname,mobile_phone,bindip,createdate
+        from user
+        where status='1'
+
+        <if test='userType != null and userType != ""'>
+            and user_type = #{userType,jdbcType=VARCHAR}
+        </if>
+
+        <if test='mobilePhone != null and mobilePhone != ""'>
+            and mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+        </if>
+
     </select>
 </mapper>

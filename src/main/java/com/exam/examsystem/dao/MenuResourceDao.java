@@ -1,6 +1,8 @@
 package com.exam.examsystem.dao;
 
+import com.exam.examsystem.dto.MenuResourceDto;
 import com.exam.examsystem.po.MenuResourcePo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +22,8 @@ public interface MenuResourceDao {
     int updateByPrimaryKey(MenuResourcePo record);
 
     List<MenuResourcePo> selectAllMenuResource();
+
+    List<MenuResourceDto> selectMenuResourceByLevels(@Param("levels") String levels);
+
+    List<MenuResourceDto> selectMenuResourceByParentmenuid(@Param("parentmenuid")Integer parentmenuid);
 }

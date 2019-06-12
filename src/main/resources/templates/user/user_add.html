@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="x-admin-sm">
+<head>
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <link rel="stylesheet" th:href="@{/css/xadmin.css}">
+    <script th:src="@{/lib/layui/layui.js}"></script>
+    <script th:src="@{/js/xadmin.js}"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label for="loginname" class="layui-form-label">
+                    <span class="x-red">*</span>登录名</label>
+                <div class="layui-input-block">
+                    <input type="text" id="loginname" name="loginname" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input"></div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="password" class="layui-form-label">
+                    <span class="x-red">*</span>密码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="password" name="password" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input"></div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="mobilePhone" class="layui-form-label">
+                    <span class="x-red">*</span>手机号</label>
+                <div class="layui-input-block">
+                    <input type="text" id="mobilePhone" name="mobilePhone" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input"></div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            $.ajax({
+                url: "/user/addUser",
+                type: "post",
+                data: data.field,
+                dataType: "json",
+                success: function (result) {
+                    if (result.success) {
+                        layer.alert("操作成功", {
+                            title: '错误信息'
+                        }, function () {
+
+                        })
+                    } else {
+                        layer.alert(result.msg, {
+                            title: '错误信息'
+                        })
+                    }
+                }, error: function (result) {
+                    layer.alert(result.responseText, {
+                        title: '错误信息'
+                    })
+                }
+            });
+
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>
