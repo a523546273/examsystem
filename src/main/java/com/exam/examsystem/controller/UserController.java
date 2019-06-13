@@ -64,7 +64,6 @@ public class UserController {
         return ResponseDataUtil.buildSuccess();
     }
 
-    @RequiresRoles("admin")
     @RequestMapping("removeUser")
     @ResponseBody
     public ResponseData removeUser(@RequestParam Integer userid) {

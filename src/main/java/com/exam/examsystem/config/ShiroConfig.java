@@ -74,8 +74,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/lib/**", "anon");
 
 
-        filterChainDefinitionMap
-                .put("/user/removeUser", "authc,perms[usermanage]");
+        filterChainDefinitionMap.put("/user/removeUser", "authc,perms[usermanage]");
         //
         // // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
         filterChainDefinitionMap.put("/*", "authc");
