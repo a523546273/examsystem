@@ -12,6 +12,7 @@ import com.exam.examsystem.resp.ResponseData;
 import com.exam.examsystem.service.UserService;
 import com.exam.examsystem.utils.QueryFilterUtils;
 import com.exam.examsystem.utils.ResponseDataUtil;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class UserController {
         return ResponseDataUtil.buildSuccess();
     }
 
+    @RequiresRoles("admin")
     @RequestMapping("removeUser")
     @ResponseBody
     public ResponseData removeUser(@RequestParam Integer userid) {

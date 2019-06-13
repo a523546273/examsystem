@@ -55,7 +55,7 @@ public class ShiroConfig {
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index/main.html");
         // 未授权时跳转的界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
         // filterChainDefinitions拦截器=map必须用：LinkedHashMap，因为它必须保证有序
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
@@ -63,23 +63,19 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "logout");
 
         // // 配置不会被拦截的链接 从上向下顺序判断
-        filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/loginout", "anon");
-        filterChainDefinitionMap.put("/css/*", "anon");
-        filterChainDefinitionMap.put("/js/*", "anon");
-        filterChainDefinitionMap.put("/js/*/*", "anon");
-        filterChainDefinitionMap.put("/js/*/*/*", "anon");
-        filterChainDefinitionMap.put("/images/*/**", "anon");
-        filterChainDefinitionMap.put("/fonts/*/**", "anon");
-        filterChainDefinitionMap.put("/lib/*", "anon");
-        filterChainDefinitionMap.put("/lib/*/**", "anon");
-
         filterChainDefinitionMap.put("/doLogin", "anon");
         filterChainDefinitionMap.put("/login.html", "anon");
 
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
+        filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/lib/**", "anon");
+
 
         filterChainDefinitionMap
-                .put("/user/delUser", "authc,perms[usermanage]");
+                .put("/user/removeUser", "authc,perms[usermanage]");
         //
         // // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
         filterChainDefinitionMap.put("/*", "authc");

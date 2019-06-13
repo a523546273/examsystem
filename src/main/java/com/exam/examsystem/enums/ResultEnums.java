@@ -15,7 +15,9 @@ public enum ResultEnums {
     VERIFY_CODE_ERROR("20002", "业务参数错误"),
     USER_PASSWORD_ERROR("10005", "用户名或密码错误次数大于5次,账户已锁定!</br>" +
             "<span style='color:red;font-weight:bold; '>2分钟后可再次登录，或联系管理员解锁</span>"),
-    USER_NULL("10006", "用户不存在");
+    USER_NULL("10006", "用户不存在"),
+
+    FORBIDDEN("403", "权限不足");
 
     private String code;
     private String msg;
