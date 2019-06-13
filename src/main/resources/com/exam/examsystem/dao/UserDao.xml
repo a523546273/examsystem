@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.examsystem.dao.UserDao">
+
     <resultMap id="BaseResultMap" type="com.exam.examsystem.po.UserPo">
         <id column="userid" jdbcType="INTEGER" property="userid"/>
         <result column="loginname" jdbcType="VARCHAR" property="loginname"/>
@@ -23,11 +24,12 @@
         <result column="creator" jdbcType="INTEGER" property="creator"/>
         <result column="modifydate" jdbcType="TIMESTAMP" property="modifydate"/>
         <result column="modifier" jdbcType="INTEGER" property="modifier"/>
+        <result column="deleted" jdbcType="VARCHAR" property="deleted"/>
     </resultMap>
     <sql id="Base_Column_List">
     userid, loginname, `password`, slat, user_type, `name`, sex, telephone, address,
     mobile_phone, fax, email, qq, `status`, organid, bindip, validity, createdate, creator,
-    modifydate, modifier
+    modifydate, modifier, deleted
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -40,22 +42,22 @@
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.exam.examsystem.po.UserPo">
-    insert into user (loginname, `password`,
+    insert into user (userid, loginname, `password`,
       slat, user_type, `name`,
       sex, telephone, address,
       mobile_phone, fax, email,
       qq, `status`, organid,
       bindip, validity, createdate,
-      creator, modifydate, modifier
-      )
-    values ( #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      creator, modifydate, modifier,
+      deleted)
+    values (#{userid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{slat,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
       #{mobilePhone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
       #{qq,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{organid,jdbcType=INTEGER},
       #{bindip,jdbcType=VARCHAR}, #{validity,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP},
-      #{creator,jdbcType=INTEGER}, #{modifydate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}
-      )
+      #{creator,jdbcType=INTEGER}, #{modifydate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER},
+      #{deleted,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.exam.examsystem.po.UserPo">
         insert into user
@@ -123,6 +125,9 @@
             <if test="modifier != null">
                 modifier,
             </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userid != null">
@@ -187,6 +192,9 @@
             </if>
             <if test="modifier != null">
                 #{modifier,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -253,6 +261,9 @@
             <if test="modifier != null">
                 modifier = #{modifier,jdbcType=INTEGER},
             </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=VARCHAR},
+            </if>
         </set>
         where userid = #{userid,jdbcType=INTEGER}
     </update>
@@ -277,7 +288,8 @@
       createdate = #{createdate,jdbcType=TIMESTAMP},
       creator = #{creator,jdbcType=INTEGER},
       modifydate = #{modifydate,jdbcType=TIMESTAMP},
-      modifier = #{modifier,jdbcType=INTEGER}
+      modifier = #{modifier,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
 
@@ -285,7 +297,7 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+        where deleted='0' and mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
     </select>
 
 
@@ -293,15 +305,15 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where loginname = #{loginname,jdbcType=VARCHAR}
+        where deleted='0' and loginname = #{loginname,jdbcType=VARCHAR}
     </select>
 
 
     <select id="selectAllUser" resultMap="BaseResultMap" parameterType="com.exam.examsystem.req.UserRequest">
 
-        select userid,user_type,name,loginname,mobile_phone,bindip,createdate
+        select userid,user_type,name,loginname,mobile_phone,bindip,createdate,status
         from user
-        where status='1'
+        where deleted='0'
 
         <if test='userType != null and userType != ""'>
             and user_type = #{userType,jdbcType=VARCHAR}
@@ -312,4 +324,12 @@
         </if>
 
     </select>
+
+    <update id="removeUserBatch">
+        update user set deleted='1', modifier = #{userid,jdbcType=INTEGER},modifydate = now()
+        where userid in
+        <foreach item="item" index="index" collection="ids.split(',')" open="(" separator="," close=")">
+            '${item}'
+        </foreach>
+    </update>
 </mapper>

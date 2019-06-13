@@ -28,4 +28,5 @@ public interface UserDao {
 
     UserPo selectByLoginname(@Param("loginname") String loginname);
 
+    int removeUserBatch(@Param("ids") String ids,@Param("userid") Integer userid);
 }

@@ -8,6 +8,7 @@ public class UserRequest extends BaseRequest {
 
     private String userType;
     private String mobilePhone;
+    private Integer userid;
 
     public String getUserType() {
         return userType;
@@ -23,5 +24,13 @@ public class UserRequest extends BaseRequest {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 }

@@ -1,14 +1,13 @@
-package com.exam.examsystem.po;
+package com.exam.examsystem.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * user
- *
- * @author
+ * @author: hongwei.wang
+ * @create: 2019-06-13 11:03
  */
-public class UserPo implements Serializable {
+public class UserDto {
+
     /**
      * 用户id
      */

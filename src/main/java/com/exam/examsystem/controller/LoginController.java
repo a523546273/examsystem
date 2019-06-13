@@ -9,6 +9,8 @@ import com.exam.examsystem.service.UserService;
 import com.exam.examsystem.utils.MD5Utils;
 import com.exam.examsystem.utils.ResponseDataUtil;
 import com.exam.examsystem.vo.UserVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(produces = BizMessageConstants.MEDIATYPE_UTF8_APPLICATION_JOSN)
 public class LoginController {
+
+    private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -52,12 +56,16 @@ public class LoginController {
                 return ResponseDataUtil.buildError(ResultEnums.USER_STATUS_ERROR);
             }
 
+            request.getSession().setAttribute(SessionConstants.WSSIP_OPERATOR, userPo);
             request.getSession().setAttribute(SessionConstants.WSSIP_OPERATOR_ID, userPo.getUserid());
             request.getSession().setAttribute(SessionConstants.WSSIP_OPERATOR_LOGINNAME, userPo.getLoginname());
 
         } catch (Exception e) {
+            logger.error("登录异常", e);
             return ResponseDataUtil.buildError(ResultEnums.SYSTEM_ERROR);
         }
         return ResponseDataUtil.buildSuccess();
     }
+
+
 }

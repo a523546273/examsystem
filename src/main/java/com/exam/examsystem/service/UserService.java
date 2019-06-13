@@ -30,6 +30,43 @@ public interface UserService {
      */
     PageResult<UserPo> selectAllUser(UserRequest filter);
 
+    /**
+     * 新增用户信息
+     *
+     * @param userForm
+     * @throws Exception
+     */
     @Transactional
     void addUser(UserForm userForm) throws Exception;
+
+    /**
+     * 删除用户信息
+     *
+     * @param userid 用户id
+     * @throws Exception
+     */
+    @Transactional
+    boolean removeUser(Integer userid) throws Exception;
+
+
+    /**
+     * 删除用户信息
+     *
+     * @param ids 用户id
+     * @throws Exception
+     */
+    @Transactional
+    boolean removeUserBatch(String ids) throws Exception;
+
+
+    /**
+     * 更新用户状态
+     *
+     * @param userid
+     * @param status 1启用  2注销
+     * @return
+     * @throws Exception
+     */
+    @Transactional
+    boolean updateStatus(Integer userid, String status) throws Exception;
 }

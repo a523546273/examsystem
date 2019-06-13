@@ -22,5 +22,20 @@ public class BizMessageConstants {
      */
     public static final String USER_STATUS_1 = "1";
 
+    /**
+     * 用户注销
+     */
+    public static final String USER_STATUS_2 = "2";
+
+    /**
+     * 未删除
+     */
+    public static final String USER_DELETED_0 = "0";
+
+    /**
+     * 已删除
+     */
+    public static final String USER_DELETED_1 = "1";
+
 
 }

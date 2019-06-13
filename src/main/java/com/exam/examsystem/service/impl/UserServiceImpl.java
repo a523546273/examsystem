@@ -9,8 +9,11 @@ import com.exam.examsystem.req.UserRequest;
 import com.exam.examsystem.service.UserService;
 import com.exam.examsystem.utils.MD5Utils;
 import com.exam.examsystem.utils.SlatUtils;
+import com.exam.examsystem.utils.UserRequestUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
@@ -65,6 +70,55 @@ public class UserServiceImpl implements UserService {
 
         po.setPassword(MD5Utils.MD5Encode(userForm.getPassword(), slat));
         po.setStatus(BizMessageConstants.USER_STATUS_1);
+        po.setDeleted(BizMessageConstants.USER_DELETED_0);
         userDao.insert(po);
     }
+
+    @Override
+    public boolean removeUser(Integer userid) throws Exception {
+        UserPo userPo = userDao.selectByPrimaryKey(userid);
+        if (userPo == null) {
+            logger.info("用户：{}不存在", userid);
+            throw new Exception("用户不存在");
+        }
+        userPo.setDeleted(BizMessageConstants.USER_DELETED_1);
+        userPo.setModifier(UserRequestUtils.getCurrentUserid());
+        userPo.setModifydate(new Date());
+        int num = userDao.updateByPrimaryKey(userPo);
+        if (num == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeUserBatch(String ids) throws Exception {
+        Integer currentUserid = UserRequestUtils.getCurrentUserid();
+        int i = userDao.removeUserBatch(ids,currentUserid);
+        if (i == 0) {
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean updateStatus(Integer userid, String status) throws Exception {
+
+        UserPo userPo = userDao.selectByPrimaryKey(userid);
+        if (userPo == null) {
+            logger.info("用户：{}不存在", userid);
+            throw new Exception("用户不存在");
+        }
+
+        userPo.setStatus(status);
+        userPo.setModifier(UserRequestUtils.getCurrentUserid());
+        userPo.setModifydate(new Date());
+        int num = userDao.updateByPrimaryKey(userPo);
+        if (num == 0) {
+            return false;
+        }
+        return true;
+    }
+
 }
