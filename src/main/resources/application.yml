@@ -1,3 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/"
+    session:
+      timeout: 60
+
 spring:
   #thymelea模板配置
   thymeleaf:
@@ -49,6 +56,6 @@ mybatis:
 #分页插件
 pagehelper:
   helper-dialect: mysql
-  params: countSql
+  params: count=countSql
   reasonable: true
   support-methods-arguments: true
