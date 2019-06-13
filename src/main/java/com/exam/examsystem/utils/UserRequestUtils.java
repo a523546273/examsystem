@@ -2,6 +2,7 @@ package com.exam.examsystem.utils;
 
 import com.exam.examsystem.constants.SessionConstants;
 import com.exam.examsystem.po.UserPo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,14 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 public class UserRequestUtils {
 
     public static UserPo getCurrentUser() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        UserPo user = (UserPo) request.getSession().getAttribute(SessionConstants.WSSIP_OPERATOR);
-        return user;
+        UserPo userPo = (UserPo) SecurityUtils.getSubject().getPrincipal();
+        return userPo;
     }
 
     public static Integer getCurrentUserid() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        int userid = (int) request.getSession().getAttribute(SessionConstants.WSSIP_OPERATOR_ID);
-        return userid;
+        UserPo userPo = (UserPo) SecurityUtils.getSubject().getPrincipal();
+        return userPo.getUserid();
     }
 }

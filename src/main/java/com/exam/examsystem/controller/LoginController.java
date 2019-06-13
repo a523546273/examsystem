@@ -75,7 +75,8 @@ public class LoginController {
         return ResponseDataUtil.buildSuccess();
     }*/
 
-    @RequestMapping(value = "/login")
+
+    @RequestMapping(value = "/doLogin")
     @ResponseBody
     public ResponseData login(HttpServletRequest request, UserVo userVo, boolean rememberMe) {
 
@@ -142,7 +143,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping("/loginOut")
+    @RequestMapping("/logout")
     public ModelAndView toLogin() {
         return new ModelAndView("/login/login");
     }

@@ -5,6 +5,7 @@ import com.exam.examsystem.constants.SessionConstants;
 import com.exam.examsystem.dto.MenuResourceDto;
 import com.exam.examsystem.po.MenuResourcePo;
 import com.exam.examsystem.service.MenuResourceService;
+import com.exam.examsystem.utils.UserRequestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class IndexController {
     public ModelAndView index(HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView("/index/index");
-        String loginname = (String) request.getSession().getAttribute(SessionConstants.WSSIP_OPERATOR_LOGINNAME);
+        String loginname = UserRequestUtils.getCurrentUser().getLoginname();
         List<MenuResourceDto> menuResourcePos = null;
 
         if ("admin".equals(loginname)) {

@@ -32,6 +32,14 @@
 
 <script>
     $(function () {
+
+
+        //控制登陆窗口不能在frame中显示
+        if(top.location!==self.location){
+            top.location.href=self.location.href;
+        }
+
+
         layui.use('form', function () {
             var form = layui.form;
             /*layer.msg('玩命卖萌中', function () {
@@ -40,7 +48,7 @@
             //监听提交
             form.on('submit(login)', function (data) {
                 $.ajax({
-                    url: '/login',
+                    url: '/doLogin',
                     type: 'post',
                     dataType: 'json',
                     data: data.field,
