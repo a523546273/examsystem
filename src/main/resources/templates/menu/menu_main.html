@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="x-admin-sm" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+    <head>
+        <link rel="stylesheet" th:href="@{/css/font.css}">
+        <link rel="stylesheet" th:href="@{/css/xadmin.css}">
+        <script th:src="@{/lib/layui/layui.js}"></script>
+        <script th:src="@{/js/xadmin.js}"></script>
+        <style>
+        </style>
+    </head>
+
+    <body>
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <form class="layui-form layui-col-space5">
+
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <select name="userType">
+                                        <option></option>
+                                        <option th:value="1">管理员</option>
+                                        <option th:value="2">普通用户</option>
+                                    </select>
+                                </div>
+
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <input type="text" name="mobilePhone" placeholder="请输入手机号" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-card-header">
+                            <button class="layui-btn layui-btn-danger" th:onclick="delAll()">
+                                <i class="layui-icon"></i>批量删除
+                            </button>
+                            <button class="layui-btn" th:onclick="addUser()">
+                                <i class="layui-icon"></i>添加
+                            </button>
+                        </div>
+                        <div class="layui-card-body ">
+                            <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+
+    <script>
+
+        var editObj = null, ptable = null, treeGrid = null, tableId = 'treeTable', layer = null;
+        layui.config({
+            base: '../extend/treegrid/'
+        }).extend({
+            treeGrid: 'treeGrid'
+        }).use(['jquery', 'treeGrid', 'layer'], function () {
+            var $ = layui.jquery;
+            treeGrid = layui.treeGrid;//很重要
+            layer = layui.layer;
+            ptable = treeGrid.render({
+                id: tableId
+                , elem: '#' + tableId
+                , idField: 'id'
+                , url: '/menuResource/selectAllMenuResource'
+                , cellMinWidth: 100
+                , treeId: 'menuid'//树形id字段名称
+                , treeUpId: 'parentmenuid'//树形父id字段名称
+                , treeShowName: 'name'//以树形式显示的字段
+                , cols: [
+                    [
+                        {
+                            width: 160, title: '操作', align: 'center'/*toolbar: '#barDemo'*/
+                            , templet: function (d) {
+                                var html = '';
+                                var addBtn = '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="add">添加</a>';
+                                var delBtn = '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                                return addBtn + delBtn;
+                            }
+                        }
+                        , {field: 'name', edit: 'text', width: 300, title: '水果名称'}
+                        , {field: 'menuid', width: 100, title: 'id'}
+                        , {field: 'parentmenuid', title: 'pid'}
+                    ]
+                ]
+                , page: false
+            });
+
+            treeGrid.on('tool(' + tableId + ')', function (obj) {
+                if (obj.event === 'del') {//删除行
+                    del(obj);
+                } else if (obj.event === "add") {//添加行
+                    add(obj.data);
+                }
+            });
+        });
+
+        function del(obj) {
+            layer.confirm("你确定删除数据吗？如果存在下级节点则一并删除，此操作不能撤销！", {icon: 3, title: '提示'},
+                function (index) {//确定回调
+                    obj.del();
+                    layer.close(index);
+                }, function (index) {//取消回调
+                    layer.close(index);
+                }
+            );
+        }
+
+
+        var i = 1000;
+
+        //添加
+        function add(pObj) {
+            var param = {};
+            param.name = '水果' + Math.random();
+            param.menuid = ++i;
+            param.parentmenuid = pObj ? pObj.parentmenuid : 0;
+            treeGrid.addRow(tableId, pObj ? pObj.LAY_TABLE_INDEX + 1 : 0, param);
+        }
+
+        function print() {
+            console.log(treeGrid.cache[tableId]);
+            var loadIndex = layer.msg("对象已打印，按F12，在控制台查看！", {
+                time: 3000
+                , offset: 'auto'//顶部
+                , shade: 0
+            });
+        }
+    </script>
+
+
+</html>

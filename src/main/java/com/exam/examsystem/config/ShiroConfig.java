@@ -72,7 +72,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/lib/**", "anon");
-
+        filterChainDefinitionMap.put("/layui_exts/**", "anon");
 
         filterChainDefinitionMap.put("/user/removeUser", "authc,perms[usermanage]");
         //
