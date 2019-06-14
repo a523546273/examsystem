@@ -12,6 +12,7 @@ import com.exam.examsystem.utils.SlatUtils;
 import com.exam.examsystem.utils.UserRequestUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
         String slat = SlatUtils.generateVerifyCode();
         po.setSlat(slat);
 
-        po.setPassword(MD5Utils.MD5Encode(userForm.getPassword(), slat));
+        po.setPassword(DigestUtils.md5Hex(userForm.getPassword()));
         po.setStatus(BizMessageConstants.USER_STATUS_1);
         po.setDeleted(BizMessageConstants.USER_DELETED_0);
         userDao.insert(po);
@@ -94,7 +95,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean removeUserBatch(String ids) throws Exception {
         Integer currentUserid = UserRequestUtils.getCurrentUserid();
-        int i = userDao.removeUserBatch(ids,currentUserid);
+        int i = userDao.removeUserBatch(ids, currentUserid);
         if (i == 0) {
             return false;
         }

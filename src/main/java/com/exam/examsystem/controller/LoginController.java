@@ -78,7 +78,7 @@ public class LoginController {
 
     @RequestMapping(value = "/doLogin")
     @ResponseBody
-    public ResponseData login(HttpServletRequest request, UserVo userVo, boolean rememberMe) {
+    public ResponseData login(UserVo userVo, boolean rememberMe) {
 
         UserPo existUser = this.userService.selectByMobilePhone(userVo.getMobilePhone());
 

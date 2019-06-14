@@ -53,8 +53,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         UserPo user = (UserPo) subject.getPrincipal();
         if ("admin".equals(user.getLoginname())) {
             // 超级管理员，添加所有角色、添加所有权限
-           // authorizationInfo.addRole("*");
-           // authorizationInfo.addStringPermission("*");
+            authorizationInfo.addRole("*");
+            authorizationInfo.addStringPermission("*");
         } else {
             /*// 普通用户，查询用户的角色，根据角色查询权限
             Integer userId = user.getId();
